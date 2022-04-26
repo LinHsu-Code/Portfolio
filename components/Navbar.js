@@ -1,21 +1,23 @@
-import { useState } from "react";
-import { transition } from "@headlessui/react";
+import React, { useState } from "react";
+import { Transition } from "@headlessui/react";
 import { Link } from "react-scroll";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = React.useRef();
   return (
     <div>
       <nav className="fixed z-20 bg-white w-full">
         <div className="w-full">
           <div className="flex items-center h-20 w-full">
-            <div className="flex items-center sm:mx-10 md:mx-20 justify-between w-full">
+            <div className="flex items-center mx-10 md:mx-20 justify-between w-full">
+              {/* logo part */}
               <div className="flex justify-center items-center flex-shrink-0">
                 <h1 className="font-bold text-xl cursor-pointer">
                   LinHsu<span className="text-blue-600">Portfolio</span>
                 </h1>
               </div>
-
+              {/* menu part */}
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link
@@ -28,6 +30,7 @@ function Navbar() {
                   >
                     Home
                   </Link>
+
                   <Link
                     activeClass="Projects"
                     to="projects"
@@ -38,6 +41,7 @@ function Navbar() {
                   >
                     Projects
                   </Link>
+
                   <Link
                     activeClass="Skills"
                     to="skills"
@@ -48,6 +52,18 @@ function Navbar() {
                   >
                     Skills
                   </Link>
+
+                  <Link
+                    activeClass="Experience"
+                    to="experience"
+                    smooth={true}
+                    offset={50}
+                    duration={500}
+                    className="cursor-pointer hover:text-blue-600 px-3 py-2 text-md"
+                  >
+                    Experience
+                  </Link>
+
                   <Link
                     activeClass="Contact"
                     to="contact"
@@ -60,14 +76,14 @@ function Navbar() {
                   </Link>
                 </div>
               </div>
-
+              {/* say hi part */}
               <div className="flex justify-center items-center flex-shrink-0">
                 <h1 className="font-semibold text-lg cursor-pointer hidden md:block">
                   Say<span className="text-blue-600">hi</span>
                 </h1>
               </div>
             </div>
-
+            {/* mobile part */}
             <div className="mr-14 flex md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -94,12 +110,118 @@ function Navbar() {
                     />
                   </svg>
                 ) : (
-                  <svg></svg>
+                  <svg
+                    className="block h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 )}
               </button>
             </div>
           </div>
         </div>
+        {/* mobile menu */}
+        {/* transition properties for smooth transition */}
+        <Transition
+          show={isOpen}
+          enter="transition ease-out duration-100 transform"
+          enterForm="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave="transition ease-in duration-75 transform"
+          leaveForm="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          {() => (
+            <div className="md:hidden" id="mobile-menu">
+              <div
+                ref={ref}
+                className="bg-white mx-4 mr-20 pt-4 pb-4 space-y-1"
+              >
+                <Link
+                  href="/home"
+                  activeClass="home"
+                  to="home"
+                  smooth={true}
+                  offset={50}
+                  duration={500}
+                  className="cursor-pointer hover:bg-blue-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Home
+                </Link>
+
+                <Link
+                  href="/projects"
+                  activeClass="projects"
+                  to="projects"
+                  smooth={true}
+                  offset={50}
+                  duration={500}
+                  className="cursor-pointer hover:bg-blue-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Projects
+                </Link>
+
+                <Link
+                  href="/skills"
+                  activeClass="skills"
+                  to="skills"
+                  smooth={true}
+                  offset={50}
+                  duration={500}
+                  className="cursor-pointer hover:bg-blue-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Skills
+                </Link>
+
+                <Link
+                  href="/experience"
+                  activeClass="experience"
+                  to="experience"
+                  smooth={true}
+                  offset={50}
+                  duration={500}
+                  className="cursor-pointer hover:bg-blue-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Work Experience
+                </Link>
+
+                <Link
+                  href="/contact"
+                  activeClass="contact"
+                  to="contact"
+                  smooth={true}
+                  offset={50}
+                  duration={500}
+                  className="cursor-pointer hover:bg-blue-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Contact
+                </Link>
+
+                <Link
+                  href="/hi"
+                  activeClass="hi"
+                  to="hi"
+                  smooth={true}
+                  offset={50}
+                  duration={500}
+                  className="cursor-pointer hover:bg-blue-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Say<span className="text-black">hi</span>
+                </Link>
+              </div>
+            </div>
+          )}
+        </Transition>
       </nav>
     </div>
   );
